@@ -1,12 +1,12 @@
 FROM maven:3.8.1-openjdk-17
 
 # copy local code to container image
-WORKDIR /app
+WORKDIR /appDocker
 COPY pom.xml .
 COPY src ./src
 
 # build a release artifact
-RUN mvn package -DskipTests
+RUN mvn clean package -DskipTests
 
 # run the web service on container startup
-CMD ["java","-jar","/app/target/oneApiBackend-0.0.1-SNAPSHOT.jar"]
+CMD ["java","-jar","/appDocker/target/oneApiBackend-0.0.1-SNAPSHOT.jar"]

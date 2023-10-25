@@ -20,10 +20,14 @@ public class SessionInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)throws Exception{
         HttpSession session = request.getSession();
         UserInfo userObject = (UserInfo)session.getAttribute(LOGIN_STATUS);
-        if(userObject ==null) {
-            authFailOutPut(response, "登录信息不存在，请重新登录");
-            return false;
-        }
+        //如果不是登录请求，也不是注册请求的话
+//        if(!request.getRequestURI().contains("login") && !request.getRequestURI().contains("register")) {
+//            if (userObject == null) {
+//                System.out.println(request.getRequestURI());
+//                authFailOutPut(response, "登录信息不存在，请重新登录");
+//                return false;
+//            }
+//        }
 
         return true;
     }

@@ -3,6 +3,7 @@ package com.example.oneapibackend.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -11,6 +12,8 @@ import java.util.List;
 
 @Configuration
 public class WebConfiguration implements WebMvcConfigurer {
+
+    static final String ORIGINS[] = new String[]{"GET", "POST", "PUT", "DELETE"};
 ////     token鉴权实现方式
 //    @Autowired
 //    private TokenInterceptor tokenInterceptor;
@@ -41,5 +44,17 @@ public class WebConfiguration implements WebMvcConfigurer {
                 .addPathPatterns("/**")
                 .excludePathPatterns(excludePath);
         WebMvcConfigurer.super.addInterceptors(registry);
+    }
+
+    /**
+     * 允许跨域的配置
+     * @param registry
+     */
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOriginPatterns("*").
+                allowCredentials(true).
+                allowedMethods(ORIGINS).maxAge(3600);
     }
 }
