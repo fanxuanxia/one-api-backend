@@ -3,7 +3,6 @@ package com.example.oneapibackend.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.example.interfaceclientsdk.client.ApiClient;
 import com.example.oneapibackend.common.InterfaceStatus;
 import com.example.oneapibackend.common.ErrorCode;
 import com.example.oneapibackend.common.BaseResponse;
