@@ -16,6 +16,7 @@ import com.example.oneapibackend.model.response.IdResponse;
 import com.example.oneapibackend.service.InterfaceInfoService;
 import com.example.oneapibackend.mapper.InterfaceInfoMapper;
 import com.example.oneapibackend.service.UserInfoService;
+import com.fasterxml.jackson.databind.ser.Serializers;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +41,6 @@ public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, I
 
     @Autowired
     UserInfoService userInfoService;
-
-    @Resource
-    private ApiClient apiClient;
 
     private static final String AK = "access_key";
     private static final String SK = "secret_Key";
@@ -136,51 +134,52 @@ public class InterfaceInfoServiceImpl extends ServiceImpl<InterfaceInfoMapper, I
 
     @Override
     public BaseResponse<String> invokeInterface(InterfaceInvokeRequest interfaceInvokeRequest, HttpServletRequest request) {
-        Integer id = interfaceInvokeRequest.getInterfaceId();
-        InterfaceInfo info = interfaceInfoMapper.selectById(id);
+//        Integer id = interfaceInvokeRequest.getInterfaceId();
+//        InterfaceInfo info = interfaceInfoMapper.selectById(id);
+//
+//        // 接口不存在，或者状态不是上线
+//        if (info == null || !InterfaceStatus.ONLINE.getCode().equals(info.getStatus())) {
+////            return BaseResponse.error(ErrorCode.PARAMS_ERROR,"请求的接口不存在");
+//            return BaseResponse.error(ErrorCode.NOT_FOUND_ERROR);
+//        }
+//
+//        // 根据请求获取当前登录的用户，并取出该用户的ak和sk
+////        UserInfo user = userInfoService.getLoginUser(request);
+////        String accessKey = user.getAccessKey();
+////        String secretKey = user.getSecretKey();
+//
+//        String accessKey = "sdfghjkl";
+//        String secretKey = "12345678";
+//        // 要反射的方法名
+//        String reflectName = info.getReflectName();
+//        ApiClient apiClient = new ApiClient(accessKey, secretKey);
+//
+//        // 获取到所有的方法
+//        Method[] methods = apiClient.getClass().getDeclaredMethods();
+//        Method method = null;
+//
+//        // 查找方法是否存在
+//        for (Method m : methods) {
+//            if (m.getName().equals(reflectName)) {
+//                method = m;
+//                break;
+//            }
+//        }
+//        if (method != null) {
+//            // 反射调用方法
+//            try {
+//                Object invokeResult = method.invoke(apiClient, interfaceInvokeRequest.getUserRequestBody());
+//                System.out.println(invokeResult.toString());
+//                return  BaseResponse.success(invokeResult);
+//            } catch (IllegalAccessException e) {
+//                throw new RuntimeException(e);
+//            } catch (InvocationTargetException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
 
-        // 接口不存在，或者状态不是上线
-        if (info == null || !InterfaceStatus.ONLINE.getCode().equals(info.getStatus())) {
-//            return BaseResponse.error(ErrorCode.PARAMS_ERROR,"请求的接口不存在");
-            return BaseResponse.error(ErrorCode.NOT_FOUND_ERROR);
-        }
-
-        // 根据请求获取当前登录的用户，并取出该用户的ak和sk
-//        UserInfo user = userInfoService.getLoginUser(request);
-//        String accessKey = user.getAccessKey();
-//        String secretKey = user.getSecretKey();
-
-        String accessKey = "sdfghjkl";
-        String secretKey = "12345678";
-        // 要反射的方法名
-        String reflectName = info.getReflectName();
-        ApiClient apiClient = new ApiClient(accessKey, secretKey);
-
-        // 获取到所有的方法
-        Method[] methods = apiClient.getClass().getDeclaredMethods();
-        Method method = null;
-
-        // 查找方法是否存在
-        for (Method m : methods) {
-            if (m.getName().equals(reflectName)) {
-                method = m;
-                break;
-            }
-        }
-        if (method != null) {
-            // 反射调用方法
-            try {
-                Object invokeResult = method.invoke(apiClient, interfaceInvokeRequest.getUserRequestBody());
-                System.out.println(invokeResult.toString());
-                return  BaseResponse.success(invokeResult);
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
-            } catch (InvocationTargetException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        return BaseResponse.error(ErrorCode.NOT_FOUND_ERROR);
+//        return BaseResponse.error(ErrorCode.NOT_FOUND_ERROR);
+        return BaseResponse.success(null);
     }
 
 
