@@ -4,6 +4,7 @@ FROM maven:3.8.1-openjdk-17
 WORKDIR /appDocker
 COPY pom.xml .
 COPY src ./src
+COPY settings.xml /usr/share/maven/conf/settings.xml
 
 # build a release artifact
 RUN mvn clean package -DskipTests
